@@ -1,0 +1,8 @@
+---
+- name: Install packages
+  apt:
+    name: "{{ item }}"
+    state: installed
+  with_items:
+    - google-chrome-stable
+  become: true

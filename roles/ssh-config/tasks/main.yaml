@@ -1,0 +1,9 @@
+---
+- name: Ensure that an SSH proxy jump host is configured
+  blockinfile:
+    block: |
+      Host dev-director
+        ProxyCommand ssh stackhpc@xcat1-wcdc.hpc.cam.ac.uk -W 10.41.210.1:%p
+    dest: "{{ ansible_user_dir }}/.ssh/config"
+    state: present
+    create: yes

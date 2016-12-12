@@ -1,0 +1,19 @@
+---
+- name: Install packages
+  apt:
+    name: "{{ item }}"
+    state: installed
+  with_items:
+    - vim
+  become: true
+
+- name: Checkout vim configuration
+  git:
+    repo: https://markgoddard@github.com/markgoddard/vim
+    dest: /home/mark/.vim
+
+- name: Ensure the .vimrc symlink exists
+  file:
+    src: /home/mark/.vim/.vimrc
+    dest: /home/mark/.vimrc
+    state: link

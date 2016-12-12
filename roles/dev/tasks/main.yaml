@@ -1,0 +1,5 @@
+---
+- include: docker.yaml
+- include: chrome.yaml
+- include: vim.yaml
+- include: vbox.yaml
