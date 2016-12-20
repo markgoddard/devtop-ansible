@@ -1,10 +1,12 @@
 ---
-- name: Ensure that an SSH proxy jump host is configured
+- name: Ensure that SSH proxy jump hosts are configured
   blockinfile:
     block: |
-      Host dev-director
-        User stack
-        ProxyCommand ssh stackhpc@xcat1-wcdc.hpc.cam.ac.uk -W 10.41.210.1:%p
+      {% for proxy in ssh_proxies %}
+      Host {{ proxy.alias }}
+        User {{ proxy.username }}
+        ProxyCommand ssh {{ proxy.jump_username }}@{{ proxy.jump_address }} -W {{ proxy.address }}:%p
+      {% endfor %}
     dest: "{{ ansible_user_dir }}/.ssh/config"
     state: present
     create: yes
