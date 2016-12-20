@@ -1,0 +1,8 @@
+---
+- name: Configure ~/.bashrc
+  blockinfile:
+    block:
+      export EDITOR=vim
+    dest: "{{ ansible_user_dir }}/.bashrc"
+    state: present
+    create: yes
