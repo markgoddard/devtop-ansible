@@ -6,6 +6,9 @@
       Host {{ proxy.alias }}
         User {{ proxy.username }}
         ProxyCommand ssh {{ proxy.jump_username }}@{{ proxy.jump_address }} -W {{ proxy.address }}:%p
+      {% for lf in proxy.local_forwards | default([]) %}
+        LocalForward {% if lf.local_host is defined %}{{ lf.local_host }}:{% endif %}{{ lf.local_port }} {{ lf.remote_host }}:{{ lf.remote_port }}
+      {% endfor %}
       {% endfor %}
     dest: "{{ ansible_user_dir }}/.ssh/config"
     state: present
