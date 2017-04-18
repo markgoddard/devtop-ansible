@@ -2,25 +2,32 @@
 - hosts: localhost
   roles:
     - role: ssh-config
-      ssh_proxies:
-        - alias: dev-director
+      ssh_hosts:
+        - pattern: dev-director
           address: 10.60.210.1
           username: stack
-          jump_username: hpcgodd1
-          jump_address: alaska-gate.vss.cloud.cam.ac.uk
+          proxy:
+            username: hpcgodd1
+            address: alaska-gate.vss.cloud.cam.ac.uk
           local_forwards:
             - local_port: 8080
               remote_host: 10.60.253.1
               remote_port: 80
 
-        - alias: stg-director
+        - pattern: stg-director
           address: 10.121.100.250
           username: stack
-          jump_username: stackhpc
-          jump_address: xcat1-wcdc.hpc.cam.ac.uk
+          proxy:
+            username: stackhpc
+            address: xcat1-wcdc.hpc.cam.ac.uk
 
-        - alias: prod-director
+        - pattern: prod-director
           address: 10.41.100.249
           username: stack
-          jump_username: stackhpc
-          jump_address: xcat1-wcdc.hpc.cam.ac.uk
+          proxy:
+            username: stackhpc
+            address: xcat1-wcdc.hpc.cam.ac.uk
+
+        - pattern: alaska-gate
+          address: alaska-gate.vss.cloud.cam.ac.uk
+          username: hpcgodd1

@@ -1,12 +1,15 @@
 ---
-- name: Ensure that SSH proxy jump hosts are configured
+- name: Ensure that SSH hosts are configured
   blockinfile:
     block: |
-      {% for proxy in ssh_proxies %}
-      Host {{ proxy.alias }}
-        User {{ proxy.username }}
-        ProxyCommand ssh {{ proxy.jump_username }}@{{ proxy.jump_address }} -W {{ proxy.address }}:%p
-      {% for lf in proxy.local_forwards | default([]) %}
+      {% for host in ssh_hosts %}
+      Host {{ host.pattern }}
+        User {{ host.username }}
+        HostName {{ host.address }}
+      {% if host.proxy is defined %}
+        ProxyCommand ssh {{ host.proxy.username }}@{{ host.proxy.address }} -W {{ host.address }}:%p
+      {% endif %}
+      {% for lf in host.local_forwards | default([]) %}
         LocalForward {% if lf.local_host is defined %}{{ lf.local_host }}:{% endif %}{{ lf.local_port }} {{ lf.remote_host }}:{{ lf.remote_port }}
       {% endfor %}
       {% endfor %}

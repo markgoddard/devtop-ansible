@@ -1,4 +1,10 @@
 ---
-# List of proxy jump config dicts. Must contain the following items:
-# alias, address, username, jump_address, jump_username, local_forwards.
-ssh_proxies: []
+# List of SSH host dicts.
+# Required items:
+# - alias
+# - address
+# Optional items:
+# - username
+# - proxy
+# - local_forwards
+ssh_hosts: []
