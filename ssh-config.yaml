@@ -10,9 +10,26 @@
             username: hpcgodd1
             address: alaska-gate.vss.cloud.cam.ac.uk
           local_forwards:
+            # ALaSKA production horizon
             - local_port: 8080
               remote_host: 10.60.253.1
               remote_port: 80
+            # ALaSKA production kibana
+            - local_port: 8081
+              remote_host: 10.60.253.3
+              remote_port: 5601
+            # ALaSKA production grafana
+            - local_port: 8082
+              remote_host: 10.60.253.1
+              remote_port: 3000
+            # ALaSKA alt-1 horizon
+            - local_port: 8083
+              remote_host: 10.60.253.128
+              remote_port: 80
+            # ALaSKA alt-1 skydive-analyser
+            - local_port: 8085
+              remote_host: 10.60.253.128
+              remote_port: 8085
 
         - pattern: stg-director
           address: 10.121.100.250
